@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus - Polytechnic Hub</title>
+    
+    <!-- Google Fonts: Outfit (Headings/Logo) & Poppins (Body/Buttons) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-color: #080c17;
+            --brand-blue: #3b82f6;
+            --brand-purple: #8b5cf6;
+            --brand-cyan: #06b6d4;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            
+            /* Glassmorphism Variables */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           ANIMATED BACKGROUND EFFECTS (Floating Orbs)
+           ========================================================================== */
+        .ambient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: floatOrb 20s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: rgba(59, 130, 246, 0.2); /* Blue */
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: rgba(139, 92, 246, 0.2); /* Purple */
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 60%;
+            width: 30vw;
+            height: 30vw;
+            background: rgba(6, 182, 212, 0.15); /* Cyan */
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(5%, 10%) scale(1.1); }
+            100% { transform: translate(-5%, 5%) scale(0.9); }
+        }
+
+        /* ==========================================================================
+           PREMIUM FIXED HEADER
+           ========================================================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(8, 12, 23, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-center {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+            text-align: center;
+            flex: 1;
+            padding: 0 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .pdf-badge {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+
+        /* ==========================================================================
+           MAIN CONTENT & PDF VIEWER
+           ========================================================================== */
+        .main-container {
+            flex: 1;
+            margin-top: 90px; /* Accounts for fixed header + spacing */
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .pdf-wrapper {
+            width: 100%;
+            height: calc(100vh - 240px); /* 90% aesthetic, leaving room for actions */
+            min-height: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pdf-wrapper:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        /* The actual Iframe styling */
+        .pdf-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .pdf-iframe.loaded {
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           PREMIUM LOADER ANIMATION
+           ========================================================================== */
+        .loader-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 12, 23, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .spinner::before, .spinner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 4px solid transparent;
+        }
+
+        .spinner::before {
+            border-top-color: var(--brand-blue);
+            border-right-color: var(--brand-purple);
+            animation: spin 1.5s linear infinite;
+        }
+
+        .spinner::after {
+            border-bottom-color: var(--brand-cyan);
+            border-left-color: var(--brand-blue);
+            animation: spin 1s linear infinite reverse;
+            transform: scale(0.8);
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            animation: pulseText 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        }
+
+        /* ==========================================================================
+           BOTTOM ACTION BAR (3 Premium Buttons)
+           ========================================================================== */
+        .action-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Button Hover 3D Effect */
+        .btn:hover {
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        /* Button Shine Effect */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 150%;
+        }
+
+        /* Specific Button Themes */
+        .btn-download {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.4));
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .btn-download:hover {
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(5, 150, 105, 0.6));
+        }
+
+        .btn-fullscreen {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(109, 40, 217, 0.4));
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        .btn-fullscreen:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(109, 40, 217, 0.6));
+        }
+
+        .btn-home {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.4));
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        .btn-home:hover {
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(37, 99, 235, 0.6));
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .footer {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (Media Queries)
+           ========================================================================== */
+        
+        /* Tablets & Smaller Laptops */
+        @media (max-width: 992px) {
+            .pdf-wrapper {
+                height: calc(100vh - 280px);
+            }
+        }
+
+        /* Mobile Devices */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 1rem;
+            }
+            
+            .header-center {
+                display: none; /* Hide long title on small screens to save space */
+            }
+
+            .main-container {
+                padding: 0 1rem;
+                margin-top: 85px;
+            }
+
+            .pdf-wrapper {
+                height: 60vh; /* Better fit for mobile viewports */
+                min-height: 400px;
+                border-radius: 12px;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Floating Orbs Background -->
+    <div class="ambient-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Premium Fixed Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="logo-text">POLYTECHNIC <span>HUB</span></div>
+        </div>
+        
+        <div class="header-center">
+            Electrical Engineering Syllabus
+        </div>
+        
+        <div class="header-right">
+            <div class="pdf-badge">
+                <i class="fa-solid fa-file-pdf"></i> PDF
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-container">
+        
+        <!-- PDF Viewer Wrapper -->
+        <div class="pdf-wrapper">
+            
+            <!-- Premium Loading Animation -->
+            <div class="loader-container" id="pdf-loader">
+                <div class="spinner"></div>
+                <div class="loader-text">Loading Document...</div>
+            </div>
+
+            <!-- PDF Iframe -->
+            <!-- Note: Browser caching or local paths might load instantly. 
+                 The onload event handles removing the loader. -->
+            <iframe 
+                id="pdf-frame"
+                class="pdf-iframe" 
+                src="pdf/SYLLABUS ELECTRICAL ENGINEERING.pdf" 
+                title="Electrical Engineering Syllabus"
+                type="application/pdf">
+            </iframe>
+        </div>
+
+        <!-- Bottom Action Bar with 3 Premium Buttons -->
+        <div class="action-bar">
+            <!-- Download Button -->
+            <button class="btn btn-download" onclick="downloadPDF()">
+                <i class="fa-solid fa-download"></i>
+                Download PDF
+            </button>
+
+            <!-- View Full Screen Button -->
+            <button class="btn btn-fullscreen" onclick="viewFullScreen()">
+                <i class="fa-regular fa-eye"></i>
+                View Full Screen
+            </button>
+
+            <!-- Go To Home Button -->
+            <button class="btn btn-home" onclick="goToHome()">
+                <i class="fa-solid fa-house"></i>
+                Go To Home
+            </button>
+        </div>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Polytechnic Hub | All Rights Reserved</p>
+    </footer>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // PDF File Path Constant
+        const PDF_PATH = "pdf/SYLLABUS ELECTRICAL ENGINEERING.pdf";
+
+        // Element References
+        const pdfFrame = document.getElementById('pdf-frame');
+        const pdfLoader = document.getElementById('pdf-loader');
+
+        /**
+         * Handle PDF Loading State
+         * Hides the premium loader and fades in the iframe once it finishes loading.
+         */
+        pdfFrame.addEventListener('load', function() {
+            // Add a slight delay for aesthetic smoothness before hiding the loader
+            setTimeout(() => {
+                pdfLoader.classList.add('hidden');
+                pdfFrame.classList.add('loaded');
+            }, 800);
+        });
+
+        /**
+         * Fallback mechanism: In case the iframe doesn't fire the 'load' event 
+         * (which happens occasionally with PDFs in some specific browser configurations),
+         * we remove the loader after a reasonable timeout.
+         */
+        setTimeout(() => {
+            if (!pdfFrame.classList.contains('loaded')) {
+                pdfLoader.classList.add('hidden');
+                pdfFrame.classList.add('loaded');
+            }
+        }, 5000); // 5 seconds fallback
+
+        /**
+         * Action: Download PDF
+         * Creates a temporary anchor tag to trigger the browser's download prompt.
+         */
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = PDF_PATH;
+            link.download = "Electrical_Engineering_Syllabus.pdf"; // Suggested filename
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        /**
+         * Action: View Full Screen
+         * Opens the PDF in a new browser tab for full native viewing.
+         */
+        function viewFullScreen() {
+            window.open(PDF_PATH, '_blank');
+        }
+
+        /**
+         * Action: Go To Home
+         * Redirects the user back to the main homepage index.html.
+         */
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
