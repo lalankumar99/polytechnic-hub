@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytechnic Hub | Premium Educational Platform</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Educational Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#050b14',
+                            primary: '#4f46e5',
+                            secondary: '#06b6d4',
+                            accent: '#8b5cf6'
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'premium': '0 20px 40px -10px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Premium Effects & Animations -->
+    <style>
+        body {
+            background-color: #050b14;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050b14; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #4f46e5, #8b5cf6); border-radius: 10px; }
+
+        /* AI Chatbot Scrollbar */
+        .chat-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .chat-scroll::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.5); border-radius: 10px; }
+
+        /* Smooth Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #c084fc, #38bdf8);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 3s linear infinite;
+        }
+        @keyframes gradient-flow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* --- PREMIUM FOLDER DESIGN --- */
+        .folder-wrapper {
+            perspective: 1200px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: block;
+        }
+        
+        .folder-tab {
+            width: 40%;
+            height: 18px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 2;
+            margin-bottom: -1px;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+        }
+
+        .folder-body {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border-radius: 0 16px 16px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            padding: 1.5rem;
+        }
+
+        .folder-body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            transition: all 0.7s ease;
+        }
+
+        .folder-wrapper:hover {
+            transform: translateY(-8px) scale(1.02);
+            z-index: 10;
+        }
+
+        .folder-wrapper:hover .folder-body {
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.2);
+            border-color: rgba(96, 165, 250, 0.5);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 1) 100%);
+        }
+
+        .folder-wrapper:hover .folder-body::before {
+            left: 200%;
+        }
+
+        .folder-wrapper:hover .folder-icon {
+            transform: scale(1.15) translateY(-5px);
+            filter: drop-shadow(0 0 12px currentColor); 
+        }
+        .folder-icon { transition: all 0.4s ease; }
+
+        /* --- PREMIUM SEARCH BAR --- */
+        .search-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .search-container:focus-within {
+            border-color: rgba(96, 165, 250, 0.6);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.2), inset 0 0 10px rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- PREMIUM SIDE MENU ITEMS --- */
+        .menu-item {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border-left: 3px solid transparent;
+        }
+        .menu-item:hover {
+            background: linear-gradient(to right, rgba(255,255,255,0.08), transparent);
+            padding-left: 1.5rem; 
+            border-left: 3px solid #60a5fa; 
+        }
+        .menu-item i {
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover i {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        /* Header Scroll Effect */
+        #navbar.scrolled {
+            background: rgba(5, 11, 20, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Typing Indicator Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Message Formatting */
+        .ai-message p { margin-bottom: 0.5rem; }
+        .ai-message p:last-child { margin-bottom: 0; }
+        .ai-message strong { color: #60a5fa; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white relative overflow-x-hidden">
+
+    <!-- Navigation Header -->
+    <header class="fixed w-full top-0 z-40 transition-all duration-300 py-4" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center max-w-7xl">
+            <!-- Logo area -->
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-wider text-white">POLYTECHNIC <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">HUB</span></h1>
+                </div>
+            </a>
+
+            <!-- Desktop Links & Menu Toggle -->
+            <div class="flex items-center gap-4 sm:gap-8">
+                <nav class="hidden md:flex gap-8 items-center text-sm font-medium text-gray-400">
+                    <a href="#" class="hover:text-white hover:text-shadow-glow transition-all">Home</a>
+                    <a href="#" class="hover:text-white hover:text-shadow-glow transition-all">Notes</a>
+                    <a href="#" class="hover:text-white hover:text-shadow-glow transition-all">PYQ Hub</a>
+                </nav>
+                
+                <button id="menuToggle" class="flex items-center justify-center px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 shadow-lg hover:shadow-cyan-500/20 transition-all backdrop-blur-md group">
+                    <i class="fa-solid fa-bars text-gray-300 group-hover:text-white transition-colors"></i>
+                    <span class="hidden sm:inline-block ml-2 text-sm font-medium text-gray-300 group-hover:text-white transition-colors">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation Overlay -->
+    <div id="sideMenu" class="fixed inset-y-0 right-0 w-full sm:w-80 md:w-[380px] bg-[#050b14]/90 backdrop-blur-3xl border-l border-white/10 z-[60] transform translate-x-full transition-transform duration-500 ease-in-out shadow-[-20px_0_50px_rgba(0,0,0,0.5)] flex flex-col">
+        
+        <div class="p-6 flex justify-between items-center border-b border-white/10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full"></div>
+            <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 tracking-wide relative z-10">Navigation</h2>
+            <button id="closeMenu" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-500/20 hover:text-red-400 transition-all shadow-lg relative z-10">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 scroll-smooth chat-scroll">
+            <ul class="flex flex-col gap-2">
+                <!-- AI Assistant को मेनू से हटा दिया गया है जैसा कि आपने कहा था -->
+                <li><a href="index.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-house w-6 text-center text-blue-400"></i> Home</a></li>
+                <li><a href="semester_notes_section.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-book-open w-6 text-center text-indigo-400"></i> Polytechnic Semester Wise Notes</a></li>
+                <li><a href="branch_wise_section.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-code-branch w-6 text-center text-cyan-400"></i> Branch Wise Section</a></li>
+                <li><a href="pyq_hub_section.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-file-alt w-6 text-center text-purple-400"></i> PYQ Hub</a></li>
+                <li><a href="quiz_section.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-laptop-code w-6 text-center text-pink-400"></i> Quiz Section</a></li>
+                <li><a href="pdf_download_hub.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-file-pdf w-6 text-center text-red-400"></i> PDF Download Hub</a></li>
+                <li><a href="resources_center.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-layer-group w-6 text-center text-orange-400"></i> Resources Center</a></li>
+                <li><a href="result_sgpa_cgpa_calculator.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-calculator w-6 text-center text-yellow-400"></i> Result, SGPA & CGPA Calculator</a></li>
+                <li><a href="placement_corner.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-briefcase w-6 text-center text-emerald-400"></i> Placement Corner</a></li>
+                <li><a href="about_founder_contact.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-user-tie w-6 text-center text-purple-300"></i> About Founder</a></li>
+                <li><a href="about_founder_contact.html" class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm sm:text-base text-gray-300 hover:text-white"><i class="fa-solid fa-envelope w-6 text-center text-gray-400"></i> Contact Information</a></li>
+            </ul>
+        </div>
+        <div class="p-6 border-t border-white/10 text-center bg-black/20">
+            <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Powered by</p>
+            <p class="text-base font-bold text-white mt-1">LK SMART STUDY</p>
+        </div>
+    </div>
+    <div id="menuBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[55] hidden transition-opacity duration-500 opacity-0"></div>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-4 flex flex-col items-center justify-center min-h-[75vh] text-center max-w-5xl mx-auto">
+        
+        <div class="reveal mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-200 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            <span>Platform by <strong class="text-white">LK SMART STUDY</strong></span>
+        </div>
+
+        <h1 class="reveal delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+            Elevate Your <br />
+            <span class="text-gradient">Polytechnic Journey</span>
+        </h1>
+        
+        <p class="reveal delay-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-gray-300 mb-10 leading-relaxed font-light">
+            The ultimate premium hub for polytechnic students. Access high-quality semester notes, PYQs, quizzes, and live classes all in one futuristic dashboard.
+        </p>
+
+        <!-- FUNCTIONAL SEARCH BAR -->
+        <div class="reveal delay-300 w-full max-w-xl mx-auto px-2 sm:px-0 relative z-20">
+            <div class="search-container rounded-full flex items-center p-1.5 sm:p-2">
+                <i class="fa-solid fa-search text-blue-400 ml-4 text-lg shrink-0"></i>
+                <input type="text" id="searchInput" placeholder="Search notes, subjects, or resources..." class="w-full bg-transparent border-none text-white px-4 py-2 sm:py-3 focus:outline-none placeholder-gray-500 text-sm sm:text-base font-light">
+                <button class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-transform transform hover:scale-105 active:scale-95 shrink-0">
+                    Search
+                </button>
+            </div>
+            <p id="noResultsMsg" class="hidden text-red-400 mt-4 text-sm font-medium">No resources found for your search.</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Folders Section -->
+    <section id="dashboardSection" class="relative py-12 md:py-20 px-4 sm:px-6 container mx-auto z-10">
+        <div class="text-center mb-12 sm:mb-16 reveal flex flex-col items-center">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Study Dashboard</span></h2>
+            <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-4 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+            <p class="text-xs sm:text-sm text-gray-400 max-w-xl">Access everything you need through our modern, premium 3D folder interface.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8 max-w-7xl mx-auto" id="folderContainer">
+            
+            <!-- Folder 1: All Courses -->
+            <a href="all_courses_marketplace.html" class="folder-wrapper reveal filter-item">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_5px_#60a5fa]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/30 mb-1 shadow-inner">
+                        <i class="folder-icon fa-solid fa-book-bookmark text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">All Courses</h3>
+                    <p class="folder-desc text-[10px] sm:text-xs text-gray-400 text-center leading-tight">Comprehensive modules</p>
+                </div>
+            </a>
+
+            <!-- Folder 2: PYQ -->
+            <a href="#" class="folder-wrapper reveal filter-item delay-100">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_5px_#c084fc]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center border border-purple-500/30 mb-1 shadow-inner">
+                        <i class="folder-icon fa-solid fa-file-circle-question text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">Previous Year<br>Questions</h3>
+                    <p class="folder-desc hidden">PYQ previous year old exams past</p>
+                </div>
+            </a>
+
+            <!-- Folder 3: Quiz Test -->
+            <a href="#" class="folder-wrapper reveal filter-item delay-200">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_5px_#22d3ee]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/30 mb-1 shadow-inner">
+                        <i class="folder-icon fa-solid fa-laptop-code text-2xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">Quiz Test</h3>
+                    <p class="folder-desc text-[10px] sm:text-xs text-gray-400 text-center leading-tight">Test your knowledge</p>
+                </div>
+            </a>
+
+            <!-- Folder 4: AI Study Assistant (Linked to Chat Widget) -->
+            <a href="javascript:void(0)" onclick="toggleChatWindow()" class="folder-wrapper reveal filter-item">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_5px_#facc15]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center border border-yellow-500/30 mb-1 shadow-inner relative">
+                        <!-- AI Ping animation -->
+                        <div class="absolute -top-1 -right-1 flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+                        </div>
+                        <i class="folder-icon fa-solid fa-robot text-2xl text-yellow-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">AI Assistant</h3>
+                    <p class="folder-desc text-[10px] sm:text-xs text-gray-400 text-center leading-tight">Ask doubts & upload PDF</p>
+                </div>
+            </a>
+
+            <!-- Folder 5: Live Classes -->
+            <a href="#" class="folder-wrapper reveal filter-item delay-100">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-red-400 shadow-[0_0_5px_#f87171]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square relative">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center border border-red-500/30 mb-1 shadow-inner">
+                        <i class="folder-icon fa-solid fa-chalkboard-user text-2xl text-red-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">Live Classes</h3>
+                    <p class="folder-desc text-[10px] sm:text-xs text-gray-400 text-center leading-tight">Interactive sessions</p>
+                </div>
+            </a>
+
+            <!-- Folder 6: About -->
+            <a href="#" class="folder-wrapper reveal filter-item delay-200">
+                <div class="folder-tab flex items-center px-3">
+                    <div class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_5px_#34d399]"></div>
+                </div>
+                <div class="folder-body flex flex-col items-center justify-center gap-3 aspect-[4/3] sm:aspect-square">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30 mb-1 shadow-inner">
+                        <i class="folder-icon fa-solid fa-circle-info text-2xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="folder-title text-sm sm:text-base font-bold text-white text-center leading-tight">About Us</h3>
+                    <p class="folder-desc text-[10px] sm:text-xs text-gray-400 text-center leading-tight">Know our mission</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 md:py-24 relative z-10 border-t border-white/5 bg-[#050810]/50">
+        <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-white/[0.02] p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 hover:bg-white/[0.04] hover:-translate-y-2 transition-all duration-300 reveal group shadow-lg hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-book-open text-xl text-blue-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Premium Notes</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed font-light">Handwritten and digitally crafted notes formatted for top semester grades.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white/[0.02] p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 hover:bg-white/[0.04] hover:-translate-y-2 transition-all duration-300 reveal delay-100 group shadow-lg hover:shadow-[0_10px_30px_rgba(168,85,247,0.15)]">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-layer-group text-xl text-purple-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Study Materials</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed font-light">Complete collection of syllabus-oriented study materials for all branches.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white/[0.02] p-8 rounded-2xl border border-white/10 hover:border-cyan-500/50 hover:bg-white/[0.04] hover:-translate-y-2 transition-all duration-300 reveal delay-200 group shadow-lg hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]">
+                    <div class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cubes text-xl text-cyan-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Resources</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed font-light">From practical files to project reports, everything you need in one place.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="bg-white/[0.02] p-8 rounded-2xl border border-white/10 hover:border-orange-500/50 hover:bg-white/[0.04] hover:-translate-y-2 transition-all duration-300 reveal delay-300 group shadow-lg hover:shadow-[0_10px_30px_rgba(249,115,22,0.15)]">
+                    <div class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-compass text-xl text-orange-400"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Career Guidance</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed font-light">Placement preparation, interview tips, and guidance from industry experts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#03060a] border-t border-white/10 pt-16 pb-8 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-graduation-cap text-white text-xs"></i>
+                        </div>
+                        <h2 class="text-base font-bold tracking-wide text-white">POLYTECHNIC HUB</h2>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light max-w-md">
+                        The most premium and modern educational platform designed exclusively for polytechnic students to excel in their academics and careers.
+                    </p>
+                </div>
+                <div class="md:col-span-3 lg:ml-auto">
+                    <h3 class="text-white font-bold mb-6 text-sm tracking-wider uppercase">Platform Links</h3>
+                    <ul class="space-y-4 text-sm text-gray-400 font-light">
+                        <li><a href="#" class="hover:text-blue-400 transition-colors flex items-center gap-2">About LK SMART STUDY</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors flex items-center gap-2">Placement Corner</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors flex items-center gap-2">SGPA Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-4">
+                    <h3 class="text-white font-bold mb-6 text-sm tracking-wider uppercase">Contact Info</h3>
+                    <ul class="space-y-4 text-sm text-gray-400 font-light">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope mt-1 text-blue-400 shrink-0"></i>
+                            <span class="break-all">contact@lksmartstudy.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <p class="text-gray-500 text-sm">&copy; <script>document.write(new Date().getFullYear())</script> Polytechnic Hub. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">Founded by <span class="text-gray-300 font-semibold">Lalan Kumar</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 
+      =========================================================
+      FLOATING AI CHATBOT WIDGET (गोल वाला प्रीमियम AI असिस्टेंट)
+      =========================================================
+    -->
+    <div class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[100] flex flex-col items-end">
+        
+        <!-- Chat Window (Initially Hidden) -->
+        <div id="aiChatWindow" class="hidden w-[calc(100vw-2rem)] sm:w-[400px] h-[550px] max-h-[80vh] mb-4 bg-[#0a0f1c]/95 backdrop-blur-2xl rounded-2xl flex-col overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/10 transition-all transform origin-bottom-right scale-95 opacity-0 duration-300">
+            
+            <!-- Header -->
+            <div class="p-4 bg-gradient-to-r from-blue-900/40 to-purple-900/40 border-b border-white/10 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-cyan-300 flex items-center justify-center shadow-lg relative">
+                        <i class="fa-solid fa-robot text-white text-lg"></i>
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#0a0f1c] rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-sm tracking-wide">AI Study Assistant</h3>
+                        <p class="text-[10px] text-green-400">Online & Ready to Help</p>
+                    </div>
+                </div>
+                <button onclick="toggleChatWindow()" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-500/20 hover:text-red-400 text-gray-400 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 chat-scroll">
+                <!-- Bot Welcome Message -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/30">
+                        <i class="fa-solid fa-robot text-blue-400 text-xs"></i>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-sm text-gray-200">
+                        <p>नमस्ते! मैं Polytechnic Hub का AI Assistant हूँ। आप मुझसे अपने विषय से जुड़े सवाल पूछ सकते हैं या कोई फोटो/PDF अपलोड करके भी मदद ले सकते हैं।</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Attachment Preview Area -->
+            <div id="filePreviewContainer" class="hidden px-4 py-2 bg-black/30 border-t border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <i class="fa-solid fa-file-lines text-blue-400"></i>
+                    <span id="fileNameDisplay" class="text-xs text-gray-300 truncate max-w-[200px]">document.pdf</span>
+                </div>
+                <button onclick="clearAttachment()" class="text-red-400 hover:text-red-300 text-xs font-bold">Remove</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 bg-white/5 border-t border-white/10 flex items-end gap-2">
+                
+                <!-- Hidden File Input -->
+                <input type="file" id="aiFileInput" accept="image/*,application/pdf" class="hidden" onchange="handleFileSelect(event)">
+                
+                <!-- Attach Button -->
+                <button onclick="document.getElementById('aiFileInput').click()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-blue-400 transition-colors shrink-0 tooltip" title="Upload Photo or PDF">
+                    <i class="fa-solid fa-paperclip"></i>
+                </button>
+                
+                <!-- Text Area -->
+                <textarea id="aiInputText" rows="1" placeholder="Type your question..." class="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/50 resize-none chat-scroll" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendChatMessage(); }"></textarea>
+                
+                <!-- Send Button -->
+                <button onclick="sendChatMessage()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 flex items-center justify-center text-white shadow-lg shrink-0 transition-transform hover:scale-105">
+                    <i class="fa-solid fa-paper-plane text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Action Button (गोल वाला बटन) -->
+        <button id="chatFab" onclick="toggleChatWindow()" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white shadow-[0_10px_25px_rgba(79,70,229,0.5)] hover:shadow-[0_10px_35px_rgba(79,70,229,0.7)] transition-all hover:scale-110 relative group border border-white/20">
+            <i class="fa-solid fa-robot text-2xl transition-transform group-hover:rotate-12"></i>
+            <!-- Notification Badge -->
+            <span class="absolute top-0 right-0 flex h-4 w-4">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-[#050b14]"></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // -------------------------------------------------------------------
+        // MAIN WEBSITE SCRIPTS (Navigation, Search, etc.)
+        // -------------------------------------------------------------------
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const navbar = document.getElementById('navbar');
+
+        function openNav() {
+            sideMenu.classList.remove('translate-x-full');
+            menuBackdrop.classList.remove('hidden');
+            setTimeout(() => { menuBackdrop.classList.remove('opacity-0'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            sideMenu.classList.add('translate-x-full');
+            menuBackdrop.classList.add('opacity-0');
+            setTimeout(() => { menuBackdrop.classList.add('hidden'); }, 500); 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        menuToggle.addEventListener('click', openNav);
+        closeMenu.addEventListener('click', closeNav);
+        menuBackdrop.addEventListener('click', closeNav);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // Search Script
+        const searchInput = document.getElementById('searchInput');
+        const folderItems = document.querySelectorAll('.filter-item');
+        const noResultsMsg = document.getElementById('noResultsMsg');
+        
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+            folderItems.forEach(item => {
+                const title = item.querySelector('.folder-title').innerText.toLowerCase();
+                const desc = item.querySelector('.folder-desc').innerText.toLowerCase();
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                    item.classList.remove('active');
+                    setTimeout(() => item.classList.add('active'), 10);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            if (visibleCount === 0) noResultsMsg.classList.remove('hidden');
+            else noResultsMsg.classList.add('hidden');
+        });
+
+        // Prevent empty links default
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') e.preventDefault();
+            });
+        });
+
+        // Reveal Animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Number Counters
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / 150;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 15);
+                        } else counter.innerText = target;
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
+
+
+        // -------------------------------------------------------------------
+        // AI STUDY ASSISTANT SCRIPTS (GEMINI API INTEGRATION)
+        // -------------------------------------------------------------------
+        const apiKey = ""; // API Key will be injected by the environment
+        const chatWindow = document.getElementById('aiChatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const aiInputText = document.getElementById('aiInputText');
+        
+        let currentFileBase64 = null;
+        let currentFileMimeType = null;
+        let isChatOpen = false;
+
+        // Toggle Chat Window
+        function toggleChatWindow() {
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                chatWindow.classList.remove('hidden');
+                setTimeout(() => {
+                    chatWindow.classList.remove('scale-95', 'opacity-0');
+                    chatWindow.classList.add('scale-100', 'opacity-100');
+                    chatWindow.style.display = 'flex';
+                }, 10);
+            } else {
+                chatWindow.classList.remove('scale-100', 'opacity-100');
+                chatWindow.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    chatWindow.classList.add('hidden');
+                    chatWindow.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // Handle File Upload (Photo or PDF)
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                // Extract base64 part
+                currentFileBase64 = reader.result.split(',')[1];
+                currentFileMimeType = file.type;
+                
+                // Show Preview UI
+                document.getElementById('fileNameDisplay').innerText = file.name;
+                document.getElementById('filePreviewContainer').classList.remove('hidden');
+                document.getElementById('filePreviewContainer').classList.add('flex');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Clear Attachment
+        function clearAttachment() {
+            currentFileBase64 = null;
+            currentFileMimeType = null;
+            document.getElementById('aiFileInput').value = '';
+            document.getElementById('filePreviewContainer').classList.add('hidden');
+            document.getElementById('filePreviewContainer').classList.remove('flex');
+        }
+
+        // Auto-resize textarea
+        aiInputText.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if(this.scrollHeight > 100) {
+                this.style.overflowY = 'auto';
+            } else {
+                this.style.overflowY = 'hidden';
+            }
+        });
+
+        // Format AI Response (Simple Markdown to HTML)
+        function formatAIResponse(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br/>');
+        }
+
+        // Add Message to Chat UI
+        function appendMessage(text, sender = 'user', attachmentInfo = null) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-3 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+            
+            let iconHtml = '';
+            let bubbleClasses = '';
+            
+            if (sender === 'user') {
+                bubbleClasses = 'bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl rounded-tr-none text-white';
+            } else {
+                iconHtml = `
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/30">
+                    <i class="fa-solid fa-robot text-blue-400 text-xs"></i>
+                </div>`;
+                bubbleClasses = 'bg-white/5 border border-white/10 rounded-2xl rounded-tl-none text-gray-200 ai-message';
+            }
+
+            let attachmentHtml = '';
+            if (attachmentInfo) {
+                attachmentHtml = `<div class="text-[10px] bg-black/20 rounded p-1 mb-1 italic opacity-80 border border-white/10 flex items-center gap-1"><i class="fa-solid fa-paperclip"></i> ${attachmentInfo}</div>`;
+            }
+
+            msgDiv.innerHTML = `
+                ${iconHtml}
+                <div class="${bubbleClasses} p-3 max-w-[85%] text-sm shadow-md">
+                    ${attachmentHtml}
+                    <div>${sender === 'bot' ? formatAIResponse(text) : text}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send Message to Gemini API
+        async function sendChatMessage() {
+            const text = aiInputText.value.trim();
+            if (!text && !currentFileBase64) return;
+
+            // Prepare UI for sending
+            const attachedFileName = currentFileBase64 ? document.getElementById('fileNameDisplay').innerText : null;
+            appendMessage(text || "Uploaded a file.", 'user', attachedFileName);
+            aiInputText.value = '';
+            aiInputText.style.height = 'auto';
+            
+            // Backup file data before clearing
+            const fileData = currentFileBase64;
+            const fileMime = currentFileMimeType;
+            clearAttachment();
+
+            // Show Typing Indicator
+            const typingId = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.id = typingId;
+            typingDiv.className = `flex gap-3`;
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/30">
+                    <i class="fa-solid fa-robot text-blue-400 text-xs"></i>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-4 max-w-[85%] flex items-center gap-1 shadow-md">
+                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Prepare Payload for Gemini
+            const parts = [];
+            if (text) {
+                parts.push({ text: text });
+            } else {
+                parts.push({ text: "Please analyze this uploaded document/image." });
+            }
+
+            if (fileData && fileMime) {
+                parts.push({
+                    inlineData: {
+                        mimeType: fileMime,
+                        data: fileData
+                    }
+                });
+            }
+
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: parts
+                }],
+                systemInstruction: {
+                    parts: [{ text: "You are a helpful AI study assistant for Polytechnic students. Please answer kindly and accurately in Hindi (हिंदी). You can analyze images and PDFs." }]
+                }
+            };
+
+            // Call API with Exponential Backoff
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            let retries = 0;
+            const maxRetries = 5;
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            let success = false;
+            let responseText = "माफ़ कीजिए, अभी सर्वर से संपर्क नहीं हो पा रहा है। कृपया कुछ देर बाद प्रयास करें।";
+
+            while (retries <= maxRetries && !success) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.candidates && data.candidates[0].content.parts[0].text) {
+                            responseText = data.candidates[0].content.parts[0].text;
+                            success = true;
+                        } else {
+                            throw new Error("Invalid response format");
+                        }
+                    } else {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                } catch (error) {
+                    if (retries < maxRetries) {
+                        await new Promise(res => setTimeout(res, delays[retries]));
+                        retries++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            // Remove typing indicator and show response
+            const tDiv = document.getElementById(typingId);
+            if(tDiv) tDiv.remove();
+            
+            appendMessage(responseText, 'bot');
+        }
+    </script>
+</body>
+</html>
