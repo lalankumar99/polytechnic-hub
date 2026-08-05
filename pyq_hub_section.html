@@ -327,7 +327,37 @@
                             </div>
                         </div>
 
-    <div id="pdf-container"></div>
+    <div id="pdf-container">
+
+    <div class="relative bg-brand-dark/90 backdrop-blur-2xl rounded-3xl p-8 md:p-12 border border-white/5">
+
+        <div class="text-center">
+
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 mb-6">
+                <i class="fa-solid fa-file-pdf text-4xl text-purple-400"></i>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mb-3">
+                Five Year PYQ
+            </h2>
+
+            <p class="text-gray-400 mb-8">
+                Previous 5 Years Question Papers for
+                Third Semester Electrical Engineering.
+            </p>
+
+            <button id="openPdfBtn"
+                class="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 font-bold text-white">
+
+                Open
+
+            </button>
+
+        </div>
+
+    </div>
+
+    </div>
                     </div>
                 </div>
         </section>
@@ -532,7 +562,93 @@ if (
             // --- INITIALIZE ---
             renderSemesters();
             renderBranches();
+            window.addEventListener("resize", () => {
+
+    if (window.innerWidth > window.innerHeight) {
+
+        rotateMessage.classList.add("hidden");
+        rotateMessage.classList.remove("flex");
+
+    }
+
+});
+            const openBtn = document.getElementById("openPdfBtn");  
+const popup = document.getElementById("landscapePopup");  
+  
+openBtn.addEventListener("click", () => {  
+    popup.classList.remove("hidden");  
+    popup.classList.add("flex");  
+});
+            const continueBtn = document.getElementById("continueBtn");
+const pdfContainer = document.getElementById("pdf-container");
+
+continueBtn.addEventListener("click", async () => {
+
+    popup.classList.add("hidden");
+    popup.classList.remove("flex");
+
+    if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+    }
+
+    pdfContainer.innerHTML = `
+        <iframe
+            src="https://drive.google.com/file/d/1qoUPSdSVlw6CIUjaF2r28YWv_izEYuXn/preview"
+            width="100%"
+            height="1000"
+            style="border:none;border-radius:18px;"
+            allow="autoplay">
+        </iframe>
+    `;
+});
         });
+        const rotateMessage = document.getElementById("rotateMessage");
+
+if (window.innerHeight > window.innerWidth) {
+    rotateMessage.classList.remove("hidden");
+    rotateMessage.classList.add("flex");
+
+    return;
+}
     </script>
+    <div id="landscapePopup"
+     class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[9999]">
+
+    <div class="bg-[#111827] rounded-3xl p-8 w-[90%] max-w-md text-center border border-white/10">
+
+        <i class="fa-solid fa-mobile-screen text-5xl text-indigo-400 mb-6"></i>
+
+        <h2 class="text-2xl font-bold text-white mb-3">
+            Better Experience in Landscape Mode
+        </h2>
+
+        <p class="text-gray-400 mb-8">
+            Please rotate your device to Landscape for the best PDF reading experience.
+        </p>
+
+        <button id="continueBtn"
+                class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 font-bold text-white">
+            Continue
+        </button>
+
+    </div>
+        <div id="rotateMessage"
+     class="fixed inset-0 bg-black hidden items-center justify-center z-[99999]">
+
+    <div class="text-center">
+        <i class="fa-solid fa-mobile-screen text-6xl text-white mb-6"></i>
+
+        <h2 class="text-3xl font-bold text-white">
+            Rotate Your Device
+        </h2>
+
+        <p class="text-gray-300 mt-4">
+            Please rotate your phone to Landscape Mode.
+        </p>
+    </div>
+
+        </div>
+
+    </div>
 </body>
 </html>
